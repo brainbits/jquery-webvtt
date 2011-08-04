@@ -12,7 +12,7 @@
     /**
      * Some regular expressions for parsing
      */
-    var TIMESTAMP = /^(?:(\d{2,}):)?(\d{2}):(\d{2}[,.]\d{3})$/,
+    var TIMESTAMP = /^(?:(\d{2,}):)?(\d{2}):(\d{2})[,.](\d{3})$/,
         CUE       = /(.*) --> (.*)\n(.*)/,
         WEBVTT    = /^\uFEFF?WEBVTT(?: .*)\n{2,}/;
 
@@ -23,7 +23,7 @@
         return [
 
         ];
-    }
+            }
 
     /**
      * Converts a WebVTT timestamp into a floating number
@@ -35,7 +35,9 @@
         }
 
         var matches = TIMESTAMP.exec(time),
-            number  = parseFloat(matches[3]);
+            number  = matches[4]/1000;
+
+        number += parseInt(matches[3]);
 
         if (matches[2]) {
             number += matches[2] * 60;
@@ -44,7 +46,7 @@
         if (matches[1]) {
             number += matches[1] * 60 * 60;
         }
-        
+
         return number;
     }
 
