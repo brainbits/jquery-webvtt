@@ -13,17 +13,45 @@
      * Some regular expressions for parsing
      */
     var TIMESTAMP = /^(?:(\d{2,}):)?(\d{2}):(\d{2})[,.](\d{3})$/,
-        CUE       = /(.*) --> (.*)\n(.*)/,
-        WEBVTT    = /^\uFEFF?WEBVTT(?: .*)\n{2,}/;
+        CUE       = /^(?:(.*)\n)?([\d:,.]+) --> ([\d:,.]+)\n(.*)$/,
+        WEBVTT    = /^\uFEFF?WEBVTT(?: .*)/;
 
     /**
      * Parse the WebVTT source into a javascript array
      */
     var parse = function(text) {
-        return [
 
-        ];
+        var lines   = text.split(/(\n{2,})/),
+            cues    = [],
+            matches = [],
+            i       = 0;
+
+        do {
+
+            // If there is the optional WebVTT Header, omit first two lines
+            if(i === 0 && WEBVTT.test(lines[i])) {
+                i += 2;
             }
+
+            if (!CUE.test(lines[i])) {
+                throw "An error while parsing a WebVTT cue string.";
+            }
+
+            matches = CUE.exec(lines[i]);
+
+            cues.push({
+                marker: matches[1],
+                from: timestampToNumber(matches[2]),
+                to: timestampToNumber(matches[3]),
+                payload: matches[4]
+            })
+
+            i += 2;
+            
+        } while (i < lines.length);
+
+        return cues;
+    }
 
     /**
      * Converts a WebVTT timestamp into a floating number
@@ -38,7 +66,7 @@
             number  = matches[4]/1000;
 
         number += parseInt(matches[3]);
-
+        
         if (matches[2]) {
             number += matches[2] * 60;
         }
