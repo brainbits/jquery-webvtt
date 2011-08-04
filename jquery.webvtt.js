@@ -16,7 +16,7 @@
      */
     var TIMESTAMP = /^(?:(\d{2,}):)?(\d{2}):(\d{2})[,.](\d{3})$/,
         CUE       = /^(?:(.*)\n)?([\d:,.]+) --> ([\d:,.]+)\n(.*)$/,
-        WEBVTT    = /^\uFEFF?WEBVTT(?: .*)/;
+        WEBVTT    = /^\uFEFF?WEBVTT(?: .*)?/;
 
     /**
      * Converts a WebVTT timestamp into a floating number
@@ -42,7 +42,7 @@
 
         return number;
     }
-    
+
     /**
      * Parse the WebVTT source into a javascript array
      */
@@ -74,7 +74,7 @@
             });
 
             i += 2;
-            
+
         } while (i < lines.length);
 
         return cues;
@@ -101,7 +101,7 @@
                 matches = matches.add(cue.payload);
             }
         });
-
+        
         return matches;
     };
 
