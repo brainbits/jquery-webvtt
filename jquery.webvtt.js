@@ -83,7 +83,8 @@
      */
     $.webVtt = function(source, time) {
 
-        var element = $(source);
+        var element = $(source),
+            matches = $([]);
 
         if (!element.data('webvtt')) {
             element.data('webvtt', parse(element.text()));
@@ -93,7 +94,13 @@
             time = timestampToNumber(time);
         }
 
-        return $('<div/>');
+        $.each(element.data('webvtt'), function(index, cue) {
+            if (cue.from <= time && cue.to > time) {
+                matches = matches.add(cue.payload);
+            }
+        });
+
+        return matches;
     };
 
     /**
