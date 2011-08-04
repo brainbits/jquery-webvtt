@@ -43,7 +43,7 @@
                 marker: matches[1],
                 from: timestampToNumber(matches[2]),
                 to: timestampToNumber(matches[3]),
-                payload: matches[4]
+                payload: $('<p/>').text(matches[4])
             })
 
             i += 2;
