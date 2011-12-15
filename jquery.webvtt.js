@@ -48,7 +48,7 @@
      */
     function parse(text) {
 
-        var lines   = $.trim(text).split(/(\n{2,})/),
+        var lines   = $.trim(text).split(/(?:\n{2,})/),
             cues    = [],
             matches = [],
             i       = 0;
@@ -73,7 +73,7 @@
                 payload: $('<p/>').text(matches[4])
             });
 
-            i += 2;
+            i += 1;
 
         } while (i < lines.length);
 
