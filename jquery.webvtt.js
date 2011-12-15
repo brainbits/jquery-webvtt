@@ -48,7 +48,7 @@
      */
     function parse(text) {
 
-        var lines   = $.trim(text).split(/(?:\n{2,})/),
+        var lines   = $.trim(text).split(/(?:(?:\r\n|\n){2,})/),
             cues    = [],
             matches = [],
             i       = 0;
