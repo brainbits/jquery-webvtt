@@ -15,7 +15,7 @@
      * Some regular expressions for parsing
      */
     var TIMESTAMP = /^(?:(\d{2,}):)?(\d{2}):(\d{2})[,.](\d{3})$/,
-        CUE       = /^(?:(.*)\n)?([\d:,.]+) --> ([\d:,.]+)\n(.*)$/,
+        CUE       = /^(?:(.*)(?:\r\n|\n))?([\d:,.]+) --> ([\d:,.]+)(?:\r\n|\n)(.*)$/,
         WEBVTT    = /^\uFEFF?WEBVTT(?: .*)?/;
 
     /**
