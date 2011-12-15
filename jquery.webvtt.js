@@ -89,7 +89,7 @@
             matches = $([]);
 
         if (!element.data('webvtt')) {
-            element.data('webvtt', parse(element.text()));
+            element.data('webvtt', parse(element.html()));
         }
 
         if ($.type(time) !== "number") {
