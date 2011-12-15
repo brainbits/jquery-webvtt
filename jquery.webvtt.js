@@ -48,7 +48,7 @@
      */
     function parse(text) {
 
-        var lines   = text.split(/(\n{2,})/),
+        var lines   = $.trim(text).split(/(\n{2,})/),
             cues    = [],
             matches = [],
             i       = 0;
@@ -61,7 +61,7 @@
             }
 
             if (!CUE.test(lines[i])) {
-                throw "An error while parsing a WebVTT cue string.";
+                throw "An error while parsing a WebVTT cue string on cue " + (i + 1) + ".";
             }
 
             matches = CUE.exec(lines[i]);
