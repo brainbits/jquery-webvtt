@@ -54,10 +54,9 @@
             i       = 0;
 
         do {
-
             // If there is the optional WebVTT Header, omit first two lines
             if (i === 0 && WEBVTT.test(lines[i])) {
-                i += 2;
+                i += 1;
             }
 
             if (!CUE.test(lines[i])) {
@@ -74,7 +73,6 @@
             });
 
             i += 1;
-
         } while (i < lines.length);
 
         return cues;
@@ -101,7 +99,7 @@
                 matches = matches.add(cue.payload);
             }
         });
-        
+
         return matches;
     };
 
